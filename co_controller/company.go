@@ -23,8 +23,8 @@ var Company = func(modules co_interface.IModules) *cCompany[co_interface.IModule
 }
 
 // GetCompanyById 通过ID获取公司信息
-func (c *cCompany[T]) GetCompanyById(ctx context.Context, req *co_v1.GetCompanyByIdReq) (res *co_v1.CompanyRes, err error) {
-	return funs.ProxyFunc[*co_v1.CompanyRes](ctx,
+func (c *cCompany[T]) GetCompanyById(ctx context.Context, req *co_v1.GetCompanyByIdReq) (res *co_model.CompanyRes, err error) {
+	return funs.ProxyFunc[*co_model.CompanyRes](ctx,
 		func(ctx context.Context) (*co_entity.Company, error) {
 			return c.modules.Company().GetCompanyById(ctx, req.Id)
 		},
@@ -36,7 +36,7 @@ func (c *cCompany[T]) GetCompanyById(ctx context.Context, req *co_v1.GetCompanyB
 // HasCompanyByName 公司名称是否存在
 func (c *cCompany[T]) HasCompanyByName(ctx context.Context, req *co_v1.HasCompanyByNameReq) (api_v1.BoolRes, error) {
 	return funs.ProxyFunc[api_v1.BoolRes](ctx,
-		func(ctx context.Context) (bool, error) {
+		func(ctx context.Context) (api_v1.BoolRes, error) {
 			return c.modules.Company().HasCompanyByName(ctx, req.Name) == true, nil
 		}, false,
 	)
@@ -60,8 +60,8 @@ func (c *cCompany[T]) QueryCompanyList(ctx context.Context, req *co_v1.QueryComp
 }
 
 // CreateCompany 创建公司信息
-func (c *cCompany[T]) CreateCompany(ctx context.Context, req *co_v1.CreateCompanyReq) (*co_v1.CompanyRes, error) {
-	return funs.ProxyFunc1[*co_v1.CompanyRes](
+func (c *cCompany[T]) CreateCompany(ctx context.Context, req *co_v1.CreateCompanyReq) (*co_model.CompanyRes, error) {
+	return funs.ProxyFunc1[*co_model.CompanyRes](
 		ctx, &req.Company,
 		c.modules.Company().CreateCompany, nil,
 		co_enum.Company.PermissionType(c.modules).Update,
@@ -69,8 +69,8 @@ func (c *cCompany[T]) CreateCompany(ctx context.Context, req *co_v1.CreateCompan
 }
 
 // UpdateCompany 更新公司信息
-func (c *cCompany[T]) UpdateCompany(ctx context.Context, req *co_v1.UpdateCompanyReq) (*co_v1.CompanyRes, error) {
-	return funs.ProxyFunc1[*co_v1.CompanyRes](
+func (c *cCompany[T]) UpdateCompany(ctx context.Context, req *co_v1.UpdateCompanyReq) (*co_model.CompanyRes, error) {
+	return funs.ProxyFunc1[*co_model.CompanyRes](
 		ctx, &req.Company,
 		c.modules.Company().UpdateCompany, nil,
 		co_enum.Company.PermissionType(c.modules).Update,
