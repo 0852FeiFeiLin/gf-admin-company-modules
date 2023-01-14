@@ -7,13 +7,38 @@ package co_dao
 import (
 	"github.com/SupenBysz/gf-admin-company-modules/co_interface"
 	"github.com/SupenBysz/gf-admin-company-modules/co_model/co_dao/internal"
+	"github.com/SupenBysz/gf-admin-company-modules/utility/dao_helper"
 )
 
-type CompanyDao = internal.CompanyDao
+type internalCompanyDao = *dao_helper.CustomDao[internal.CompanyColumns]
+
+// CompanyDao 是 pro_company 表的数据访问对象。
+// 您可以在其上定义自定义方法，以根据需要扩展其功能。
+type companyDao struct {
+	internalCompanyDao
+}
 
 var (
-	// Company is globally public accessible object for table pro_company operations.
-	Company = func(module co_interface.IModules) IDao[internal.CompanyColumns] {
-		return NewDao[internal.CompanyColumns](module.GetConfig(), internal.NewCompanyDao())
+	_companyDao *companyDao
+	// Company 表 pro_company 操作的全局公共可访问对象。
+	Company = func(module ...co_interface.IModules) *companyDao {
+		if _companyDao != nil {
+			return _companyDao
+		}
+		if len(module) == 0 {
+			_companyDao = &companyDao{
+				&dao_helper.CustomDao[internal.CompanyColumns]{},
+			}
+			return _companyDao
+		}
+		_companyDao = &companyDao{
+			internalCompanyDao: dao_helper.NewDao[internal.CompanyColumns](
+				module[0].GetConfig(),
+				&dao_helper.CustomDao[internal.CompanyColumns]{
+					IDao: internal.NewCompanyDao(),
+				},
+			),
+		}
+		return _companyDao
 	}
 )
