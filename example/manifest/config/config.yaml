@@ -1,146 +1,146 @@
 server:
-    address: ':7769'
-    serverRoot: '/resource'
-    dumpRouterMap: false
-    routeOverWrite: true
-    accessLogEnabled: false
-    SessionIdName: 'GfAdminProCompanySessionId'
-    sessionPath: 'temp/sessions/gf_admin_pro/company_sessions' # Session文件存储目录
-    openapiPath: '/api/openapi.json'
-    swaggerPath: '/api/docs'
-    swaggerJsURL: 'https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js' # 自定义 文档 JS 镜像地址，需要 gf 2.6.0以上版本才支持
+  address: ':7769'
+  serverRoot: '/resource'
+  dumpRouterMap: false
+  routeOverWrite: true
+  accessLogEnabled: false
+  SessionIdName: 'GfAdminProCompanySessionId'
+  sessionPath: 'temp/sessions/gf_admin_pro/company_sessions' # Session文件存储目录
+  openapiPath: '/api/openapi.json'
+  swaggerPath: '/api/docs'
+  swaggerJsURL: 'https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js' # 自定义 文档 JS 镜像地址，需要 gf 2.6.0以上版本才支持
 
 service:
-    # 用户表ID生成器，分布式终端标识，取值范围 1 ~ 63，解决分布式多服务横向扩展时保证生成的ID不重复
-    idGeneratorWorkerId: 1
-    # 接口前缀
-    apiPrefix: '/api'
-    # 终端配置
-    clientConfig:
-        # 通信标识符，需要附在 Header 的 X-CLIENT 上
-        - identifier: 93097AB03679414FDF7B7B2E69076823
-          # 允许登录的用户类型，多个用半角逗号隔开，支持扩展自定义类型
-          allowLoginUserType: [32]
-          # 是否运行注册用户，false时用户注册接口将强制返回失败
-          allowRegister: false
-          # 用户注册默认类型
-          defaultRegisterType: 0
-          # 新增用户默认状态：0未激活，1正常，-1封号，-2异常，-3已注销
-          defaultUserState: 0
-          # 登陆支持的方式：1用户名+密码+图形验证码、 2手机号+密码或验证码、4邮箱+密码
-          loginRule: [1, 2, 4]
-          # 注册支持的方式：1用户名+密码+图形验证码、 2用户名+手机号+验证码、4用户名+邮箱+验证码
-          registerRule: [1, 2, 4]
-          # 注册是否强制需要填写邀约码: true必需填写邀约码、false可选
-          enableRegisterInviteCode: false
-          # 是否开启发送验证码，默认false。正式环境建议配置好相关参数后，这里需要设置为 true 才能真正发送验证码
-          enableSendCaptcha: false
-          # 是否允许跨级创建子公司单位
-          allowSkipLevelCreateCompany: true
-          # 佣金模式（仅作用于公司超管财务账户，即公司财务账户，一般场景为机构、代理、子公司、加盟等关系业务场景）
-          # 仅作用于公司主体，0:不启用佣金机制，1：相对上级佣金百分比，2：相对交易金额百分比,3:相较于交易佣金百分比。
-          # 注意：一旦选定模式后，在一个统计周期内不能修改，否则会引起统计错误，在下一个统计周期才能正常
-          companyCommissionModel: 1
-          # 佣金分配级别（仅作用于公司超管财务账户，即公司财务账户），1：一级佣金，2：二级佣金，3：三级佣金，……以此类推
-          companyCommissionAllocationLevel: 3
-          # 员工提成模式（仅作用于员工，0不启用提成机制，1:相较于上级，2:相较于相较于交易金额百分比,3:相较于交易佣金百分比，注意：一旦选定模式后，在一个统计周期内不能修改，否则会引起统计错误，在下一个统计周期才能正常）
-          employeeCommissionModel: 1
-          # 员工提成分配等级模式（仅作用于员工：1师徒/邀请模式、2部门/团队/小组模式、3角色模式，注意：一旦选定模式后，在一个统计周期内不能修改，否则会引起统计错误，在下一个统计周期才能正常）
-          employeeCommissionLevelMode: 1
-          # 员工提成分配级别（仅作用于员工）
-          employeeCommissionAllocationLevel: 3
-          # 是否允许主体下的不同团队内的小组同名: true允许、false不允许
-          groupNameCanRepeated: true
-          # 是否允许主体下的员工同名: true允许、false不允许
-          employeeNameCanRepeated: false
-          # 是否自动创建财务账户: true自动创建、false不创建
-          autoCreateUserFinanceAccount:  true
-          # 注册时绑定的会员等级ID，0为不绑定
-          registerBindMemberLevelId: 680135658520645
-          # 资金账户默认货币类型。如果不设置，则默认跟随 service.defaultCurrency 中的设置，支持：USD/HKD/TWD/JPY/CNY/EUR/BTC/USDT/ETH
-          defaultCurrency: "CNY"
-          # 用户类型白名单，用户类型在 model/enum/user/type.go 中定义白名单中的用户类型将允许访问用户类型对应的额员工信息和公司信息
-          userTypeWhitelist: [ ]
-    # 超级管理员主体ID
-    superAdminMainId: 1
-    # 需要存储到数据库中的日志，支持：all,error,warn,info
-    logLevelToDatabase: ['all']
-    # 业务审核服务时限，超过时限需要重新申请审核，相关业务有自定义设置时，将自动忽略这里的设置
-    auditExpireDay:
-        default: 15
-    # 系统默认货币单位，默认为 CNY，支持：USD/HKD/TWD/JPY/CNY/EUR/BTC/USDT/ETH
-    defaultCurrency: 'CNY'
-    # Session上下文缓存Key
-    sessionContextKey: 'KysionCompanyBizCtxContextKye'
-    # 是否部署NFS文件系统
-    isDeployNFS: false
-    # 是否开启发送验证码，默认false时不会真的发送验证码，且相关表单默认验证码为 666666。正式环境建议配置好相关参数后，这里需要设置为 true 才能真正发送验证码
-    onSendCaptcha: false
+  # 用户表ID生成器，分布式终端标识，取值范围 1 ~ 63，解决分布式多服务横向扩展时保证生成的ID不重复
+  idGeneratorWorkerId: 1
+  # 接口前缀
+  apiPrefix: '/api'
+  # 终端配置
+  clientConfig:
+    # 通信标识符，需要附在 Header 的 X-CLIENT 上
+    - identifier: 93097AB03679414FDF7B7B2E69076823
+      # 允许登录的用户类型，多个用半角逗号隔开，支持扩展自定义类型
+      allowLoginUserType: [32]
+      # 是否运行注册用户，false时用户注册接口将强制返回失败
+      allowRegister: false
+      # 用户注册默认类型
+      defaultRegisterType: 0
+      # 新增用户默认状态：0未激活，1正常，-1封号，-2异常，-3已注销
+      defaultUserState: 0
+      # 登陆支持的方式：1用户名+密码+图形验证码、 2手机号+密码或验证码、4邮箱+密码
+      loginRule: [1, 2, 4]
+      # 注册支持的方式：1用户名+密码+图形验证码、 2用户名+手机号+验证码、4用户名+邮箱+验证码
+      registerRule: [1, 2, 4]
+      # 注册是否强制需要填写邀约码: true必需填写邀约码、false可选
+      enableRegisterInviteCode: false
+      # 是否开启发送验证码，默认false。正式环境建议配置好相关参数后，这里需要设置为 true 才能真正发送验证码
+      enableSendCaptcha: false
+      # 是否允许跨级创建子公司单位
+      allowSkipLevelCreateCompany: true
+      # 佣金模式（仅作用于公司超管财务账户，即公司财务账户，一般场景为机构、代理、子公司、加盟等关系业务场景）
+      # 仅作用于公司主体，0:不启用佣金机制，1：相对上级佣金百分比，2：相对交易金额百分比,3:相较于交易佣金百分比。
+      # 注意：一旦选定模式后，在一个统计周期内不能修改，否则会引起统计错误，在下一个统计周期才能正常
+      companyCommissionModel: 1
+      # 佣金分配级别（仅作用于公司超管财务账户，即公司财务账户），1：一级佣金，2：二级佣金，3：三级佣金，……以此类推
+      companyCommissionAllocationLevel: 3
+      # 员工提成模式（仅作用于员工，0不启用提成机制，1:相较于上级，2:相较于相较于交易金额百分比,3:相较于交易佣金百分比，注意：一旦选定模式后，在一个统计周期内不能修改，否则会引起统计错误，在下一个统计周期才能正常）
+      employeeCommissionModel: 1
+      # 员工提成分配等级模式（仅作用于员工：1师徒/邀请模式、2部门/团队/小组模式、3角色模式，注意：一旦选定模式后，在一个统计周期内不能修改，否则会引起统计错误，在下一个统计周期才能正常）
+      employeeCommissionLevelMode: 1
+      # 员工提成分配级别（仅作用于员工）
+      employeeCommissionAllocationLevel: 3
+      # 是否允许主体下的不同团队内的小组同名: true允许、false不允许
+      groupNameCanRepeated: true
+      # 是否允许主体下的员工同名: true允许、false不允许
+      employeeNameCanRepeated: false
+      # 是否自动创建财务账户: true自动创建、false不创建
+      autoCreateUserFinanceAccount:  true
+      # 注册时绑定的会员等级ID，0为不绑定
+      registerBindMemberLevelId: 680135658520645
+      # 资金账户默认货币类型。如果不设置，则默认跟随 service.defaultCurrency 中的设置，支持：USD/HKD/TWD/JPY/CNY/EUR/BTC/USDT/ETH
+      defaultCurrency: "CNY"
+      # 用户类型白名单，用户类型在 model/enum/user/type.go 中定义白名单中的用户类型将允许访问用户类型对应的额员工信息和公司信息
+      userTypeWhitelist: [ ]
+  # 超级管理员主体ID
+  superAdminMainId: 1
+  # 需要存储到数据库中的日志，支持：all,error,warn,info
+  logLevelToDatabase: ['all']
+  # 业务审核服务时限，超过时限需要重新申请审核，相关业务有自定义设置时，将自动忽略这里的设置
+  auditExpireDay:
+    default: 15
+  # 系统默认货币单位，默认为 CNY，支持：USD/HKD/TWD/JPY/CNY/EUR/BTC/USDT/ETH
+  defaultCurrency: 'CNY'
+  # Session上下文缓存Key
+  sessionContextKey: 'KysionCompanyBizCtxContextKye'
+  # 是否部署NFS文件系统
+  isDeployNFS: false
+  # 是否开启发送验证码，默认false时不会真的发送验证码，且相关表单默认验证码为 666666。正式环境建议配置好相关参数后，这里需要设置为 true 才能真正发送验证码
+  onSendCaptcha: false
 
 # 邮件设置
 email:
-    # 帐号
-    username: ''
-    # 密码
-    password: ''
-    # 发送者昵称
-    sendAuthor: ''
-    # 标题前缀
-    titlePrefix: ''
-    # 授权码
-    authCode: ''
-    pop3:
-        host: 'pop3.qq.com'
-        port: 995
-        ssl: true
-    smtp:
-        host: 'smtp.qq.com'
-        port: 25
-        ssl: false
+  # 帐号
+  username: ''
+  # 密码
+  password: ''
+  # 发送者昵称
+  sendAuthor: ''
+  # 标题前缀
+  titlePrefix: ''
+  # 授权码
+  authCode: ''
+  pop3:
+    host: 'pop3.qq.com'
+    port: 995
+    ssl: true
+  smtp:
+    host: 'smtp.qq.com'
+    port: 25
+    ssl: false
 
 # 日志配置
 logger:
-    path: 'temp/logs/default'
+  path: 'temp/logs/default'
+  level: 'all'
+  stdout: true
+  ctxKeys: ['RequestId']
+
+# 文件上传设置
+upload:
+  # 用戶1分钟内限制上传最大文件数量
+  fileMaxUploadCountMinute: 10
+  # 文件上传的默认保存路径
+  path: 'resource/upload'
+  # 文件上传默认的临时保存路径
+  tempPath: 'temp/upload'
+
+# 文件下载设置
+download:
+  # 文件下载默认的临时保存路径
+  tempPath: 'temp/download'
+
+# oss对象存储
+oss:
+  # 平台的oss-bucket名称，没有部署NFS系统的话，一般temp资源、公共资源 都是放在平台的oss中
+  masterBucketName: ''
+  # 当前服务的oss-bucket名称，各服务端的单独的对象存储空间
+  bucketName: ''
+
+# 数据库连接配置
+database:
+  logger:
+    path: 'temp/logs/sql'
     level: 'all'
     stdout: true
     ctxKeys: ['RequestId']
 
-# 文件上传设置
-upload:
-    # 用戶1分钟内限制上传最大文件数量
-    fileMaxUploadCountMinute: 10
-    # 文件上传的默认保存路径
-    path: 'resource/upload'
-    # 文件上传默认的临时保存路径
-    tempPath: 'temp/upload'
-
-# 文件下载设置
-download:
-    # 文件下载默认的临时保存路径
-    tempPath: 'temp/download'
-
-# oss对象存储
-oss:
-    # 平台的oss-bucket名称，没有部署NFS系统的话，一般temp资源、公共资源 都是放在平台的oss中
-    masterBucketName: ''
-    # 当前服务的oss-bucket名称，各服务端的单独的对象存储空间
-    bucketName: ''
-
-# 数据库连接配置
-database:
-    logger:
-        path: 'temp/logs/sql'
-        level: 'all'
-        stdout: true
-        ctxKeys: ['RequestId']
-
-    # 根目录如有 .env 文件并设置了数据库链接信息，则这里的配置将会被覆盖
-    default:
-        #数据库类型，该参数必须项
-        type: 'pgsql'
-        #数据库链接
-        link: 'postgres://dbUsername:dbPassword@127.0.0.1:5432/dbName?sslmode=disable'
-        debug: true
+  # 根目录如有 .env 文件并设置了数据库链接信息，则这里的配置将会被覆盖
+  default:
+    #数据库类型，该参数必须项
+    type: 'pgsql'
+    #数据库链接
+    link: 'postgres://dbUsername:dbPassword@127.0.0.1:5432/dbName?sslmode=disable'
+    debug: true
 # redis配置
 #redis:
 # 单实例配置示例1

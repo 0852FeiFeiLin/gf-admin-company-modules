@@ -2,12 +2,10 @@ module github.com/SupenBysz/gf-admin-company-modules
 
 go 1.24.0
 
-toolchain go1.24.1
-
 require (
-	github.com/SupenBysz/gf-admin-community v0.10.10
+	github.com/SupenBysz/gf-admin-community v0.11.0
 	github.com/gogf/gf/v2 v2.9.0
-	github.com/kysion/base-library v0.3.5
+	github.com/kysion/base-library v0.3.6
 )
 
 require (
@@ -87,10 +85,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/kysion/base-library => ../kysion/base-library
-
-replace github.com/kysion/oss-library => ../kysion/oss-library
-
-replace github.com/kysion/sms-library => ../kysion/sms-library
-
-replace github.com/SupenBysz/gf-admin-community => ../gf-admin-community
+//replace github.com/kysion/base-library => ../kysion/base-library
+//
+//replace github.com/kysion/oss-library => ../kysion/oss-library
+//
+//replace github.com/kysion/sms-library => ../kysion/sms-library
+//
+//replace github.com/SupenBysz/gf-admin-community => ../gf-admin-community
